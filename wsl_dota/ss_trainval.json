@@ -1,0 +1,30 @@
+{
+  "nproc": 10,
+  "img_dirs": [
+    "/data/nas/dataset_share/DOTA/train/images/images/",
+    "/data/nas/dataset_share/DOTA/val/images/images/"
+  ],
+  "ann_dirs": [
+    "/data/nas/dataset_share/DOTA/train/labelTxt/labelTxt/",
+    "/data/nas/dataset_share/DOTA/val/labelTxt/labelTxt/"
+  ],
+  "sizes": [
+    1500
+  ],
+  "gaps": [
+    676
+  ],
+  "rates": [
+    1.0
+  ],
+  "img_rate_thr": 0.6,
+  "iof_thr": 0.7,
+  "no_padding": false,
+  "padding_value": [
+    104,
+    116,
+    124
+  ],
+  "save_dir": "/data/nas2/home/zhanggefan/split_ss_dota_wsl_1500/trainval/",
+  "save_ext": ".png"
+}
