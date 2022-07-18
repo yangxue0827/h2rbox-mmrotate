@@ -21,5 +21,5 @@ model = dict(
             prefix='backbone.')),
     neck=dict(in_channels=[96, 192, 384, 768]))
 
-lr_config = dict(warmup_iters=1000)
+lr_config = dict(warmup_iters=1500)
 find_unused_parameters = True
