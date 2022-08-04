@@ -30,4 +30,18 @@ model = dict(
         out_channels=256,
         start_level=1,
         add_extra_convs='on_input',
-        num_outs=5))
+        num_outs=5,
+        relu_before_extra_convs=True))
+
+optimizer = dict(
+    _delete_=True,
+    type='AdamW',
+    lr=0.00005,
+    betas=(0.9, 0.999),
+    weight_decay=0.05,
+    paramwise_cfg=dict(
+        custom_keys={
+            'absolute_pos_embed': dict(decay_mult=0.),
+            'relative_position_bias_table': dict(decay_mult=0.),
+            'norm': dict(decay_mult=0.)
+        }))
