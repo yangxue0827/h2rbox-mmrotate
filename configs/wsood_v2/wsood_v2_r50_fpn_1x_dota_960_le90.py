@@ -41,7 +41,7 @@ model = dict(
         centerness_on_reg=True,
         separate_angle=False,
         scale_angle=True,
-        reassigner='many2one',
+        reassigner='one2one',
         rect_classes=[9, 11],
         bbox_coder=dict(
             type='DistanceAnglePointCoder', angle_version=angle_version),
