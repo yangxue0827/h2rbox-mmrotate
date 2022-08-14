@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/dotav1.py',
+    '../_base_/datasets/dior.py',
     '../_base_/schedules/schedule_1x.py',
     '../_base_/default_runtime.py'
 ]
@@ -30,7 +30,7 @@ model = dict(
         relu_before_extra_convs=True),
     bbox_head=dict(
         type='CondInstBoxHead',
-        num_classes=15,
+        num_classes=20,
         in_channels=256,
         center_sampling=True,
         center_sample_radius=1.5,
@@ -90,14 +90,14 @@ model = dict(
         score_thr=0.05,
         nms=dict(type='nms', iou_threshold=0.5),
         max_per_img=2000,
-        output_segm=False))
+        output_segm=True))
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True),
-    dict(type='RResize', img_scale=(1024, 1024)),
+    dict(type='RResize', img_scale=(800, 800)),
     dict(type='RRandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
@@ -106,20 +106,47 @@ train_pipeline = [
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
 
-data_root = '/data/nas/dataset_share/DOTA/split_ss_dota1_0/'
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(
+        type='MultiScaleFlipAug',
+        img_scale=(800, 800),
+        flip=False,
+        transforms=[
+            dict(type='RResize'),
+            dict(type='Normalize', **img_norm_cfg),
+            dict(type='Pad', size_divisor=64),
+            dict(type='DefaultFormatBundle'),
+            dict(type='Collect', keys=['img'])
+        ])
+]
+
+data_root = '/data/nas/dataset_share/DIOR/'
 data = dict(
-    train=dict(type='DOTAWSOODDataset', pipeline=train_pipeline,
-               ann_file=data_root + 'trainval/annfiles/',
-               img_prefix=data_root + 'trainval/images/',
-               version=angle_version),
-    val=dict(type='DOTAWSOODDataset', pipeline=train_pipeline,
-             ann_file=data_root + 'trainval/annfiles/',
-             img_prefix=data_root + 'trainval/images/',
-             version=angle_version),
-    test=dict(type='DOTAWSOODDataset',
-              ann_file=data_root + 'test/images/',
-              img_prefix=data_root + 'test/images/',
-              version=angle_version))
+    train=dict(
+        type='DIORWSOODDataset',
+        ann_file=[data_root + 'Main/train.txt', data_root + 'Main/val.txt'],
+        ann_subdir=data_root + 'Annotations/Horizontal Bounding Boxes/',
+        img_subdir=data_root + 'JPEGImages-trainval/',
+        img_prefix=data_root + 'JPEGImages-trainval/',
+        version=angle_version, xmltype='hbb',
+        pipeline=train_pipeline),
+    val=dict(
+        type='DIORWSOODDataset',
+        ann_file=data_root + 'Main/test.txt',
+        ann_subdir=data_root + 'Annotations/Oriented Bounding Boxes/',
+        img_subdir=data_root + 'JPEGImages-test/',
+        img_prefix=data_root + 'JPEGImages-test/',
+        version=angle_version, xmltype='obb',
+        pipeline=test_pipeline),
+    test=dict(
+        type='DIORWSOODDataset',
+        ann_file=data_root + 'Main/test.txt',
+        ann_subdir=data_root + 'Annotations/Oriented Bounding Boxes/',
+        img_subdir=data_root + 'JPEGImages-test/',
+        img_prefix=data_root + 'JPEGImages-test/',
+        version=angle_version, xmltype='obb',
+        pipeline=test_pipeline))
 
 # learning policy
 lr_config = dict(

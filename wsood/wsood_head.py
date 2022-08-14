@@ -40,6 +40,7 @@ class WSOODHead(RotatedFCOSHead):
                  separate_angle=False,
                  scale_angle=True,
                  reassigner='many2one',
+                 assign_vis=True,
                  weak_supervised=True,
                  h_bbox_coder=dict(type='DistancePointBBoxCoder'),
                  loss_cls=dict(
@@ -93,6 +94,7 @@ class WSOODHead(RotatedFCOSHead):
         self.rotation_agnostic_classes = rotation_agnostic_classes
         assert reassigner in ['one2one', 'many2one']
         self.reassigner = reassigner
+        self.assign_vis = assign_vis
         self.weak_supervised = weak_supervised
         self.rect_classes=rect_classes
         self.angle_version=angle_version
@@ -227,7 +229,7 @@ class WSOODHead(RotatedFCOSHead):
                 [[cosa, -sina], [sina, cosa]])
 
             pos_inds_aug = []
-            # pos_inds_aug_b = []
+            pos_inds_aug_b = []
             pos_inds_aug_v = torch.empty_like(pos_inds, dtype=torch.bool)
             offset = 0
             for h, w in featmap_sizes:
@@ -245,7 +247,7 @@ class WSOODHead(RotatedFCOSHead):
                 pos_ind_aug = (b * h + y_aug) * w + x_aug
                 pos_inds_aug_v[level_mask] = xy_valid_aug
                 pos_inds_aug.append(pos_ind_aug[xy_valid_aug] + offset)
-                # pos_inds_aug_b.append(b[xy_valid_aug])
+                pos_inds_aug_b.append(b[xy_valid_aug])
                 offset += num_imgs * h * w
 
             has_valid_aug = pos_inds_aug_v.any()
@@ -254,7 +256,7 @@ class WSOODHead(RotatedFCOSHead):
             pos_labels = flatten_labels[pos_inds]
             if has_valid_aug:
                 pos_inds_aug = torch.cat(pos_inds_aug)
-                # pos_inds_aug_b = torch.cat(pos_inds_aug_b)
+                pos_inds_aug_b = torch.cat(pos_inds_aug_b)
                 flatten_bbox_preds_aug = [
                     bbox_pred.permute(0, 2, 3, 1).reshape(-1, 4)
                     for bbox_pred in bbox_preds_aug
@@ -347,25 +349,27 @@ class WSOODHead(RotatedFCOSHead):
                 centerness_denorm_aug = max(
                     pos_centerness_targets_aug.sum().detach(), 1)
 
-                # if self.reassigner == 'many2one':
-                #     from mmrotate.core import imshow_det_rbboxes
-                #     import numpy as np
-                #     for i in range(num_imgs):
-                #         box = torch.cat(
-                #             [pos_decoded_bbox_preds_aug[pos_inds_aug_b == i],
-                #              pos_decoded_target_preds_aug[pos_inds_aug_b == i]],
-                #             dim=0).detach().cpu().numpy()
-                #         labels = np.arange(len(box)) // (len(box) // 2)
-                #
-                #         img = img_metas[i]['visualize_imgs'][1]
-                #         img = img.detach().permute(1, 2, 0)[
-                #             ..., [2, 1, 0]].cpu().numpy()
-                #         img = (img * np.array([58.395, 57.12, 57.375]) + np.array(
-                #             [123.675, 116.28, 103.53])).clip(0, 255).astype(
-                #             np.uint8)
-                #         imshow_det_rbboxes(img, box, labels,
-                #                            bbox_color=[(255, 0, 0),
-                #                                        (0, 255, 0)])
+                if self.assign_vis:
+                    from mmrotate.core import imshow_det_rbboxes
+                    import numpy as np
+                    for i in range(num_imgs):
+                        box = torch.cat(
+                            [pos_decoded_bbox_preds_aug[pos_inds_aug_b == i],
+                             pos_decoded_target_preds_aug[pos_inds_aug_b == i]],
+                            dim=0).detach().cpu().numpy()
+                        labels = np.arange(len(box)) // (len(box) // 2)
+
+                        img = img_metas[i]['visualize_imgs'][1]
+                        img = img.detach().permute(1, 2, 0)[
+                            ..., [2, 1, 0]].cpu().numpy()
+                        img = (img * np.array([58.395, 57.12, 57.375]) + np.array(
+                            [123.675, 116.28, 103.53])).clip(0, 255).astype(
+                            np.uint8)
+                        imshow_det_rbboxes(img, box, labels,
+                                           bbox_color=[(255, 0, 0),
+                                                       (0, 255, 0)],
+                                           show=False,
+                                           out_file='./assign_vis/{}.jpg'.format(img_metas[i]['filename'].split('/')[-1]))
                 # else:
                 #     import mmcv
                 #     from mmrotate.core import imshow_det_rbboxes
