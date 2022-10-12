@@ -68,7 +68,7 @@ model = dict(
             pos_weight=-1,
             debug=False)),
     test_cfg=dict(
-        nms_pre=1000,
+        nms_pre=2000,
         min_bbox_size=0,
         score_thr=0.05,
         nms=dict(iou_thr=0.4),

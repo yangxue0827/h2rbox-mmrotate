@@ -40,7 +40,7 @@ class WSOODHead(RotatedFCOSHead):
                  separate_angle=False,
                  scale_angle=True,
                  reassigner='many2one',
-                 assign_vis=True,
+                 assign_vis=False,
                  weak_supervised=True,
                  h_bbox_coder=dict(type='DistancePointBBoxCoder'),
                  loss_cls=dict(
@@ -308,6 +308,7 @@ class WSOODHead(RotatedFCOSHead):
 
                 pos_decoded_bbox_preds_aug = bbox_coder.decode(
                     pos_points_aug, pos_bbox_preds_aug)
+
                 _h, _w = img_metas[0]['crop_size']
                 _ctr = tf.new_tensor([[(_w - 1) / 2, (_h - 1) / 2]])
 
@@ -349,27 +350,33 @@ class WSOODHead(RotatedFCOSHead):
                 centerness_denorm_aug = max(
                     pos_centerness_targets_aug.sum().detach(), 1)
 
-                if self.assign_vis:
-                    from mmrotate.core import imshow_det_rbboxes
-                    import numpy as np
-                    for i in range(num_imgs):
-                        box = torch.cat(
-                            [pos_decoded_bbox_preds_aug[pos_inds_aug_b == i],
-                             pos_decoded_target_preds_aug[pos_inds_aug_b == i]],
-                            dim=0).detach().cpu().numpy()
-                        labels = np.arange(len(box)) // (len(box) // 2)
+                with torch.no_grad():
+                    if self.assign_vis:
+                        from mmrotate.core import imshow_det_rbboxes
+                        import numpy as np
+                        for i in range(num_imgs):
+                            pos_decoded_bbox_preds_aug_i = pos_decoded_bbox_preds_aug[pos_inds_aug_b == i]
+                            pos_decoded_target_preds_aug_i = pos_decoded_target_preds_aug[pos_inds_aug_b == i]
+                            if self.norm_on_bbox:
+                                pos_decoded_bbox_preds_aug_i[:, 2:4] *= self.strides[i]
+                                pos_decoded_target_preds_aug_i[:, 2:4] *= self.strides[i]
+                            box = torch.cat(
+                                [pos_decoded_bbox_preds_aug_i,
+                                 pos_decoded_target_preds_aug_i],
+                                dim=0).detach().cpu().numpy()
+                            labels = np.arange(len(box)) // (len(box) // 2)
 
-                        img = img_metas[i]['visualize_imgs'][1]
-                        img = img.detach().permute(1, 2, 0)[
-                            ..., [2, 1, 0]].cpu().numpy()
-                        img = (img * np.array([58.395, 57.12, 57.375]) + np.array(
-                            [123.675, 116.28, 103.53])).clip(0, 255).astype(
-                            np.uint8)
-                        imshow_det_rbboxes(img, box, labels,
-                                           bbox_color=[(255, 0, 0),
-                                                       (0, 255, 0)],
-                                           show=False,
-                                           out_file='./assign_vis/{}.jpg'.format(img_metas[i]['filename'].split('/')[-1]))
+                            img = img_metas[i]['visualize_imgs'][1]
+                            img = img.detach().permute(1, 2, 0)[
+                                ..., [2, 1, 0]].cpu().numpy()
+                            img = (img * np.array([58.395, 57.12, 57.375]) + np.array(
+                                [123.675, 116.28, 103.53])).clip(0, 255).astype(
+                                np.uint8)
+                            imshow_det_rbboxes(img, box, labels,
+                                               bbox_color=[(255, 0, 0),
+                                                           (0, 255, 0)],
+                                               show=False,
+                                               out_file='./assign_vis_one2one_zero/{}'.format(img_metas[i]['filename'].split('/')[-1]))
                 # else:
                 #     import mmcv
                 #     from mmrotate.core import imshow_det_rbboxes

@@ -4,9 +4,10 @@ from mmrotate.models.builder import ROTATED_DETECTORS
 from mmrotate.models.detectors.single_stage import RotatedSingleStageDetector
 from torch.nn.functional import grid_sample
 import math
+from mmrotate.core import rbbox2result
 
 
-def rotate_crop(img, theta=0, size=(768, 768), gt_bboxes=None, padding='reflection'):
+def rotate_crop(img, theta=0., size=(768, 768), gt_bboxes=None, padding='reflection'):
     device = img.device
     n, c, h, w = img.shape
     size_h, size_w = size
@@ -83,6 +84,7 @@ class WSOOD(RotatedSingleStageDetector):
                       gt_bboxes_ignore=None):
         super(RotatedSingleStageDetector, self).forward_train(img, img_metas)
         rot = (torch.rand(1, device=img.device) * 2 - 1) * math.pi
+        # rot = 0.25 * math.pi
         if self.train_cfg is not None:
             self.crop_size = self.train_cfg.get('crop_size', self.crop_size)
         img1, gt_bboxes = rotate_crop(img, 0, self.crop_size, gt_bboxes, self.padding)

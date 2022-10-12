@@ -1,5 +1,5 @@
 _base_ = [
-    './wsood_v2_r50_adamw_fpn_1x_dota_960_le90.py'
+    './wsood_v2_r50_adamw_centerloss_fpn_1x_dota_le90.py'
 ]
 
 # evaluation
@@ -12,4 +12,5 @@ lr_config = dict(
     warmup_ratio=1.0 / 3,
     step=[24, 33])
 runner = dict(type='EpochBasedRunner', max_epochs=36)
-checkpoint_config = dict(interval=6)
+checkpoint_config = dict(interval=12)
+

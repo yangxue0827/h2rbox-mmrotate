@@ -56,25 +56,35 @@ def kfiou_loss(pred,
     Returns:
         loss (torch.Tensor)
     """
+
+    # Smooth-L1 norm
     xy_p = pred[:, :2]
     xy_t = target[:, :2]
     _, Sigma_p = xy_wh_r_2_xy_sigma(pred_decode)
     _, Sigma_t = xy_wh_r_2_xy_sigma(targets_decode)
 
-    # Smooth-L1 norm
     diff = torch.abs(xy_p - xy_t)
     xy_loss = torch.where(diff < beta, 0.5 * diff * diff / beta,
                           diff - 0.5 * beta).sum(dim=-1)
 
+    # Center point item in KLD
+    # xy_p, Sigma_p = xy_wh_r_2_xy_sigma(pred_decode)
+    # xy_t, Sigma_t = xy_wh_r_2_xy_sigma(targets_decode)
     # xy_p = xy_p.reshape(-1, 2)
     # xy_t = xy_t.reshape(-1, 2)
     # Sigma_p_inv = torch.stack((Sigma_p[..., 1, 1], -Sigma_p[..., 0, 1],
     #                            -Sigma_p[..., 1, 0], Sigma_p[..., 0, 0]),
     #                           dim=-1).reshape(-1, 2, 2)
     # Sigma_p_inv = Sigma_p_inv / Sigma_p.det().unsqueeze(-1).unsqueeze(-1)
+
+    # Sigma_t_inv = torch.stack((Sigma_t[..., 1, 1], -Sigma_t[..., 0, 1],
+    #                            -Sigma_t[..., 1, 0], Sigma_t[..., 0, 0]),
+    #                           dim=-1).reshape(-1, 2, 2)
+    # Sigma_t_inv = Sigma_t_inv / Sigma_t.det().unsqueeze(-1).unsqueeze(-1)
     #
     # dxy = (xy_p - xy_t).unsqueeze(-1)
-    # xy_loss = 0.5 * dxy.permute(0, 2, 1).bmm(Sigma_p_inv).bmm(dxy).view(-1)
+    # xy_loss = 0.5 * dxy.permute(0, 2, 1).bmm(Sigma_t_inv).bmm(dxy).view(-1)
+    # xy_loss = torch.log1p(xy_loss.clamp(0.))
 
     Vb_p = 4 * Sigma_p.det().sqrt()
     Vb_t = 4 * Sigma_t.det().sqrt()
