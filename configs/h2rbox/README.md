@@ -1,5 +1,5 @@
 # H2RBox
-> [H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection]()
+> [H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection](https://arxiv.org/abs/2210.06742)
 
 <!-- [ALGORITHM] -->
 ## Abstract
@@ -26,6 +26,11 @@ DOTA1.0
 
 ## Citation
 ```
-
+@article{yang2022👌rboX,
+  title={H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection},
+  author={Yang, Xue and Zhang, Gefan and Li, Wentong and Wang, Xuehui and Zhou, Yue and Yan, Junchi},
+  journal={arXiv preprint arXiv:2210.06742},
+  year={2022}
+}
 
 ```

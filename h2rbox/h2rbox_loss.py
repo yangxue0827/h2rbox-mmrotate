@@ -19,6 +19,22 @@ class H2RBoxLoss(torch.nn.Module):
                 weight=None,
                 avg_factor=None,
                 reduction_override=None):
+        """Forward function.
+
+        Args:
+            pred (torch.Tensor): Predicted boxes.
+            target (torch.Tensor): Corresponding gt boxes.
+            weight (torch.Tensor, optional): The weight of loss for each
+                prediction. Defaults to None.
+            avg_factor (int, optional): Average factor that is used to average
+                the loss. Defaults to None.
+            reduction_override (str, optional): The reduction method used to
+               override the original reduction method of the loss.
+               Defaults to None.
+
+        Returns:
+            loss (torch.Tensor)
+        """
         assert reduction_override in (None, 'none', 'mean', 'sum')
         reduction = (
             reduction_override if reduction_override else self.reduction)
