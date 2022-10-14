@@ -26,7 +26,7 @@ DOTA1.0
 
 ## Citation
 ```
-@article{yang2022👌rboX,
+@article{yang2022h2rbox,
   title={H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection},
   author={Yang, Xue and Zhang, Gefan and Li, Wentong and Wang, Xuehui and Zhou, Yue and Yan, Junchi},
   journal={arXiv preprint arXiv:2210.06742},
