@@ -55,7 +55,7 @@ model = dict(
         loss_bbox_aug=dict(
             type='H2RBoxLoss',
             loss_weight=0.4,
-            center_loss_cfg=dict(type='L1Loss', loss_weight=0.15),
+            center_loss_cfg=dict(type='L1Loss', loss_weight=0.0),
             shape_loss_cfg=dict(type='IoULoss', loss_weight=1.0),
             angle_loss_cfg=dict(type='L1Loss', loss_weight=1.0)),
         loss_centerness=dict(

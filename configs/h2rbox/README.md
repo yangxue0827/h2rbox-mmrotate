@@ -14,10 +14,11 @@ Oriented object detection emerges in many applications from aerial images to aut
 
 DOTA1.0
 
-|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | Aug | Batch Size |                                   Configs                                   |         Download         |
-|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------:|:------------------------:|
-| ResNet50 (1024,1024,200) | 67.27 | le90  |   1x    |   7.02   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dota_le90](./h2rbox_r50_adamw_fpn_1x_dota_le90.py) | [model]() &#124; [log]() |
-| ResNet50 (1024,1024,200) |       | le90  |   3x    |   7.02   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_3x_dota_le90](./h2rbox_r50_adamw_fpn_3x_dota_le90.py) | [model]() &#124; [log]() |
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | Aug | Batch Size |                                      Configs                                      |         Download         |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------------:|:------------------------:|
+| ResNet50 (1024,1024,200) | 67.45 | le90  |   1x    |   7.02   |                |  -  |     2      |    [h2rbox_r50_adamw_fpn_1x_dota_le90](./h2rbox_r50_adamw_fpn_1x_dota_le90.py)    | [model](https://drive.google.com/file/d/1pRvlHzeTc71HZQBGdlkjFmeK2RzwC9hS/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1KQ1mtOdAswArm8YGkhXy88LvnOUDIBha/view?usp=sharing) |
+| ResNet50 (1024,1024,200) |       | le90  |   3x    |   7.02   |                |  -  |     2      |    [h2rbox_r50_adamw_fpn_3x_dota_le90](./h2rbox_r50_adamw_fpn_3x_dota_le90.py)    | [model]() &#124; [log]() |
+| ResNet50 (1024,1024,200) |       | le90  |   1x    |   8.58   |                | MS  |     2      | [h2rbox_r50_adamw_fpn_1x_dota_ms_le90](./h2rbox_r50_adamw_fpn_1x_dota_ms_le90.py) | [model]() &#124; [log]() |
 
 **Notes:**
 
