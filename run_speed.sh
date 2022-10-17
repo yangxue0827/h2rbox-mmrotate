@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES=2 python -m torch.distributed.launch --nproc_per_node=1 --master_port=29500 tools/analysis_tools/benchmark.py configs/wsood_v2/wsood_v2_r50_adamw_fpn_1x_dota_ms_le90.py work_dirs/wsood_v2_r50_adamw_fpn_1x_dota_ms_le90/latest.pth --launcher pytorch
+CUDA_VISIBLE_DEVICES=1 python -m torch.distributed.launch --nproc_per_node=1 --master_port=29500 tools/analysis_tools/benchmark.py configs/h2rbox/h2rbox_r50_adamw_fpn_1x_dota_le90.py work_dirs/h2rbox_r50_adamw_fpn_1x_dota_le90/latest.pth --launcher pytorch

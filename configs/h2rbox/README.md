@@ -18,7 +18,7 @@ DOTA1.0
 |:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------------:|:------------------------:|
 | ResNet50 (1024,1024,200) | 67.45 | le90  |   1x    |   7.02   |                |  -  |     2      |    [h2rbox_r50_adamw_fpn_1x_dota_le90](./h2rbox_r50_adamw_fpn_1x_dota_le90.py)    | [model](https://drive.google.com/file/d/1pRvlHzeTc71HZQBGdlkjFmeK2RzwC9hS/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1KQ1mtOdAswArm8YGkhXy88LvnOUDIBha/view?usp=sharing) |
 | ResNet50 (1024,1024,200) |       | le90  |   3x    |   7.02   |                |  -  |     2      |    [h2rbox_r50_adamw_fpn_3x_dota_le90](./h2rbox_r50_adamw_fpn_3x_dota_le90.py)    | [model]() &#124; [log]() |
-| ResNet50 (1024,1024,200) | 74.53 | le90  |   1x    |   8.58   |                | MS  |     2      | [h2rbox_r50_adamw_fpn_1x_dota_ms_le90](./h2rbox_r50_adamw_fpn_1x_dota_ms_le90.py) | [model](https://drive.google.com/file/d/1eY3emcHLs8B0xSU2L3jk0nEcsikSN-vJ/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1qBLvX94qra6UZFncsb7UDYPgC6nssvQd/view?usp=sharing) |
+| ResNet50 (1024,1024,200) | 74.53 | le90  |   1x    |   8.58   |       -        | MS  |     2      | [h2rbox_r50_adamw_fpn_1x_dota_ms_le90](./h2rbox_r50_adamw_fpn_1x_dota_ms_le90.py) | [model](https://drive.google.com/file/d/1eY3emcHLs8B0xSU2L3jk0nEcsikSN-vJ/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1qBLvX94qra6UZFncsb7UDYPgC6nssvQd/view?usp=sharing) |
 
 **Notes:**
 
