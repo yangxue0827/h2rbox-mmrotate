@@ -96,8 +96,8 @@ class H2RBoxHead(RotatedFCOSHead):
         self.reassigner = reassigner
         self.assign_vis = assign_vis
         self.weak_supervised = weak_supervised
-        self.rect_classes=rect_classes
-        self.angle_version=angle_version
+        self.rect_classes = rect_classes
+        self.angle_version = angle_version
 
     def forward_aug_single(self, x, scale, stride):
         reg_feat = x
@@ -130,6 +130,7 @@ class H2RBoxHead(RotatedFCOSHead):
                       **kwargs):
         outs = self(x)
         outs_aug = self.forward_aug(x_aug)
+
         if gt_labels is None:
             loss_inputs = (outs, outs_aug, tf) + (gt_bboxes, img_metas)
         else:
