@@ -1,5 +1,5 @@
 # H2RBox
-> [H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection](https://arxiv.org/abs/2210.06742)
+> [H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection](https://arxiv.org/abs/2210.06742)
 
 <!-- [ALGORITHM] -->
 ## Abstract
