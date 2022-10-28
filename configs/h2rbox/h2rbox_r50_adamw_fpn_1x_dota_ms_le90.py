@@ -2,7 +2,7 @@ _base_ = [
     './h2rbox_r50_adamw_fpn_1x_dota_le90.py'
 ]
 
-data_root = '/data/nas2/home/zhanggefan/split_ms_dota1_0/'
+data_root = 'data/split_ms_dota1_0/'
 data = dict(
     train=dict(ann_file=data_root + 'trainval/annfiles/',
                img_prefix=data_root + 'trainval/images/'),
