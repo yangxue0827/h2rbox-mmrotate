@@ -125,3 +125,4 @@ dmypy.json
 
 # custom
 mmrotate/.mim
+/configs/selfsup/
