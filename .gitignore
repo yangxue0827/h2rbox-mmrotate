@@ -120,6 +120,8 @@ dmypy.json
 *work_dirs*
 *tmp*
 *ema*
+*mae*
+*vit*
 
 # custom
 mmrotate/.mim

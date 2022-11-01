@@ -182,6 +182,65 @@ class DOTAWSOODDataset(DOTADataset):
         return zip(*merged_results)
 
 
+@ROTATED_DATASETS.register_module()
+class DOTAv15WSOODDataset(DOTAWSOODDataset):
+
+    CLASSES = ('plane', 'baseball-diamond', 'bridge', 'ground-track-field',
+               'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+               'basketball-court', 'storage-tank', 'soccer-ball-field',
+               'roundabout', 'harbor', 'swimming-pool', 'helicopter',
+               'container-crane')
+
+    PALETTE = [(165, 42, 42), (189, 183, 107), (0, 255, 0), (255, 0, 0),
+               (138, 43, 226), (255, 128, 0), (255, 0, 255), (0, 255, 255),
+               (255, 193, 193), (0, 51, 153), (255, 250, 205), (0, 139, 139),
+               (255, 255, 0), (147, 116, 116), (0, 0, 255), (220, 20, 60)]
+
+    def __init__(self,
+                 ann_file,
+                 pipeline,
+                 version='oc',
+                 difficulty=100,
+                 rect_classes=None,
+                 weak_supervised=True,
+                 **kwargs):
+
+        super(DOTAv15WSOODDataset, self).__init__(ann_file, pipeline,
+                                                  version, difficulty,
+                                                  rect_classes, weak_supervised,
+                                                  **kwargs)
+
+
+@ROTATED_DATASETS.register_module()
+class DOTAv2WSOODDataset(DOTAWSOODDataset):
+
+    CLASSES = ('plane', 'baseball-diamond', 'bridge', 'ground-track-field',
+               'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
+               'basketball-court', 'storage-tank', 'soccer-ball-field',
+               'roundabout', 'harbor', 'swimming-pool', 'helicopter',
+               'container-crane', 'airport', 'helipad')
+
+    PALETTE = [(165, 42, 42), (189, 183, 107), (0, 255, 0), (255, 0, 0),
+               (138, 43, 226), (255, 128, 0), (255, 0, 255), (0, 255, 255),
+               (255, 193, 193), (0, 51, 153), (255, 250, 205), (0, 139, 139),
+               (255, 255, 0), (147, 116, 116), (0, 0, 255), (220, 20, 60),
+               (119, 11, 32), (0, 0, 142)]
+
+    def __init__(self,
+                 ann_file,
+                 pipeline,
+                 version='oc',
+                 difficulty=100,
+                 rect_classes=None,
+                 weak_supervised=True,
+                 **kwargs):
+
+        super(DOTAv2WSOODDataset, self).__init__(ann_file, pipeline,
+                                                 version, difficulty,
+                                                 rect_classes, weak_supervised,
+                                                 **kwargs)
+
+
 def _merge_func(info, CLASSES, iou_thr):
     """Merging patch bboxes into full image.
 
