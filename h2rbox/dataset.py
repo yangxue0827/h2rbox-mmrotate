@@ -241,6 +241,16 @@ class DOTAv2WSOODDataset(DOTAWSOODDataset):
                                                  **kwargs)
 
 
+@ROTATED_DATASETS.register_module()
+class SARWSOODDataset(DOTAWSOODDataset):
+    """SAR ship dataset for detection (Support RSSDD and HRSID)."""
+
+    CLASSES = ('ship',)
+    PALETTE = [
+        (0, 255, 0),
+    ]
+
+
 def _merge_func(info, CLASSES, iou_thr):
     """Merging patch bboxes into full image.
 
