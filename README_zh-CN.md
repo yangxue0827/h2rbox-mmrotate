@@ -34,7 +34,7 @@
 
 ## 介绍
 
-[English](./README.md) | 简体中文
+[English](./README_en.md) | 简体中文
 
 MMRotate 是一款基于 PyTorch 的旋转框检测的开源工具箱，是 [OpenMMLab](http://openmmlab.org/) 项目的成员之一。
 

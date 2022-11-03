@@ -1,178 +1,54 @@
-<div align="center">
-  <img src="resources/mmrotate-logo.png" width="450"/>
-  <div>&nbsp;</div>
-  <div align="center">
-    <b><font size="5">OpenMMLab website</font></b>
-    <sup>
-      <a href="https://openmmlab.com">
-        <i><font size="4">HOT</font></i>
-      </a>
-    </sup>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <b><font size="5">OpenMMLab platform</font></b>
-    <sup>
-      <a href="https://platform.openmmlab.com">
-        <i><font size="4">TRY IT OUT</font></i>
-      </a>
-    </sup>
-  </div>
-  <div>&nbsp;</div>
+# H2RBox
+> [H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection](https://arxiv.org/abs/2210.06742)
 
-[![Documentation](https://readthedocs.org/projects/mmrotate/badge/?version=latest)](https://mmrotate.readthedocs.io/en/latest/?badge=latest)
-[![actions](https://github.com/open-mmlab/mmrotate/workflows/build/badge.svg)](https://github.com/open-mmlab/mmrotate/actions)
-[![codecov](https://codecov.io/gh/open-mmlab/mmrotate/branch/master/graph/badge.svg)](https://codecov.io/gh/open-mmlab/mmrotate)
-[![PyPI](https://img.shields.io/pypi/v/mmrotate)](https://pypi.org/project/mmrotate/)
-[![LICENSE](https://img.shields.io/github/license/open-mmlab/mmrotate.svg)](https://github.com/open-mmlab/mmrotate/blob/master/LICENSE)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/open-mmlab/mmrotate.svg)](https://github.com/open-mmlab/mmrotate/issues)
-[![Percentage of issues still open](https://isitmaintained.com/badge/open/open-mmlab/mmrotate.svg)](https://github.com/open-mmlab/mmrotate/issues)
+<!-- [ALGORITHM] -->
+## Abstract
 
-[📘Documentation](https://mmrotate.readthedocs.io/en/latest/) |
-[🛠️Installation](https://mmrotate.readthedocs.io/en/latest/install.html) |
-[👀Model Zoo](docs/en/model_zoo.md) |
-[🤔Reporting Issues](https://github.com/open-mmlab/mmrotate/issues/new/choose)
+<div align=center>
+<img src="./configs/h2rbox/pipeline.png" width="800"/>
 </div>
 
-## Introduction
+Oriented object detection emerges in many applications from aerial images to autonomous driving, while many existing detection benchmarks are annotated with horizontal bounding box only which is also less costive than fine-grained rotated box, leading to a gap between the readily available training corpus and the rising demand for oriented object detection.  This paper proposes a simple yet effective oriented object detection approach called H2RBox merely using horizontal box annotation for weakly-supervised training, which closes the above gap and shows competitive performance even against those trained with rotated boxes.  The cores of our method are weakly- and self-supervised learning, which predicts the angle of the object by learning the consistency of two different views. To our best knowledge, H2RBox is the first horizontal box annotation-based oriented object detector. Compared to an alternative i.e. horizontal box-supervised instance segmentation with our post adaption to oriented object detection, our approach is not susceptible to the prediction quality of mask and can perform more robustly in complex scenes containing a large number of dense objects and outliers. Experimental results show that H2RBox has significant performance and speed advantages over horizontal box-supervised instance segmentation methods, as well as lower memory requirements. While compared to rotated box-supervised oriented object detectors, our method shows very close performance and speed, and even surpasses them in some cases.
 
-English | [简体中文](README_zh-CN.md)
+## Results and models
 
-MMRotate is an open-source toolbox for rotated object detection based on PyTorch.
-It is a part of the [OpenMMLab project](https://github.com/open-mmlab).
+DOTA1.0
 
-The master branch works with **PyTorch 1.6+**.
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                      Configs                                      |                                                                                           Download                                                                                           |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| ResNet50 (1024,1024,200) | 67.45 | le90  |   1x    |   7.02   |      28.5      |  -  |     2      |    [h2rbox_r50_adamw_fpn_1x_dota_le90](./h2rbox_r50_adamw_fpn_1x_dota_le90.py)    | [model](https://drive.google.com/file/d/1pRvlHzeTc71HZQBGdlkjFmeK2RzwC9hS/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1KQ1mtOdAswArm8YGkhXy88LvnOUDIBha/view?usp=sharing) |
+| ResNet50 (1024,1024,200) | 70.77 | le90  |   3x    |   7.02   |      28.5      |  -  |     2      |    [h2rbox_r50_adamw_fpn_3x_dota_le90](./h2rbox_r50_adamw_fpn_3x_dota_le90.py)    | [model](https://drive.google.com/file/d/1WMtye2T_DOyPMPKbABQsbzIffANEjYpo/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1lRXV2-DsvusgE_W7cVoS7l4O30qwAR7L/view?usp=sharing) |
+| ResNet50 (1024,1024,200) | 74.53 | le90  |   1x    |   8.58   |       -        |  √  |     2      | [h2rbox_r50_adamw_fpn_1x_dota_ms_le90](./h2rbox_r50_adamw_fpn_1x_dota_ms_le90.py) | [model](https://drive.google.com/file/d/1eY3emcHLs8B0xSU2L3jk0nEcsikSN-vJ/view?usp=sharing) &#124; [log](https://drive.google.com/file/d/1qBLvX94qra6UZFncsb7UDYPgC6nssvQd/view?usp=sharing) |
 
-https://user-images.githubusercontent.com/10410257/154433305-416d129b-60c8-44c7-9ebb-5ba106d3e9d5.MP4
+DOTA1.5
 
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                          Configs                                          |         Download         |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:-----------------------------------------------------------------------------------------:|:------------------------:|
+| ResNet50 (1024,1024,200) | 60.19 | le90  |   1x    |  10.68   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav15_le90](./dotav15/h2rbox_r50_adamw_fpn_1x_dotav15_le90.py) | [model]() &#124; [log]() |
 
-<details open>
-<summary><b>Major Features</b></summary>
+DOTA2.0
 
-* **Support multiple angle representations**
-
-  MMRotate provides three mainstream angle representations to meet different paper settings.
-
-* **Modular Design**
-
-  We decompose the rotated object detection framework into different components,
-  which makes it much easy and flexible to build a new model by combining different modules.
-
-* **Strong baseline and State of the art**
-
-  The toolbox provides strong baselines and state-of-the-art methods in rotated object detection.
-
-</details>
-
-## Changelog
-
-**0.2.0** was released in 30/3/2022:
-
-- Support Circular Smooth Label (CSL, ECCV'20) (#153)
-- Add [browse_dataset](tools/misc/browse_dataset.py) tool (#98)
-
-Please refer to [changelog.md](docs/en/changelog.md) for details and release history.
-
-## Installation
-
-Please refer to [install.md](docs/en/install.md) for installation guide.
-
-## Get Started
-
-Please see [get_started.md](docs/en/get_started.md) for the basic usage of MMRotate.
-We provide [colab tutorial](demo/MMRotate_Tutorial.ipynb) for beginners.
-There are also tutorials:
-
-* [learn the basics](docs/en/intro.md)
-* [learn the config](docs/en/tutorials/customize_config.md)
-* [customize dataset](docs/en/tutorials/customize_dataset.md)
-* [customize model](docs/en/tutorials/customize_models.md)
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                        Configs                                         |         Download         |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:--------------------------------------------------------------------------------------:|:------------------------:|
+| ResNet50 (1024,1024,200) | 45.87 | le90  |   1x    |  11.57   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav2_le90](./dotav2/h2rbox_r50_adamw_fpn_1x_dotav2_le90.py) | [model]() &#124; [log]() |
 
 
-## Model Zoo
+**Notes:**
 
-Results and models are available in the *README.md* of each method's config directory.
-A summary can be found in the [Model Zoo](docs/en/model_zoo.md) page.
+- `MS` means multiple scale image split.
+- Inf time was tested on a single RTX3090.
 
-<details open>
-<summary><b>Supported algorithms:</b></summary>
+**Get Started**
 
-* [x] [Rotated RetinaNet-OBB/HBB](configs/rotated_retinanet/README.md) (ICCV'2017)
-* [x] [Rotated FasterRCNN-OBB](configs/rotated_faster_rcnn/README.md) (TPAMI'2017)
-* [x] [Rotated RepPoints-OBB](configs/rotated_reppoints/README.md) (ICCV'2019)
-* [x] [Rotated FCOS](configs/rotated_fcos/README.md) (ICCV'2019)
-* [x] [RoI Transformer](configs/roi_trans/README.md) (CVPR'2019)
-* [x] [Gliding Vertex](configs/gliding_vertex/README.md) (TPAMI'2020)
-* [x] [Rotated ATSS-OBB](configs/rotated_atss/README.md) (CVPR'2020)
-* [x] [CSL](configs/csl/README.md) (ECCV'2020)
-* [x] [R<sup>3</sup>Det](configs/r3det/README.md) (AAAI'2021)
-* [x] [S<sup>2</sup>A-Net](configs/s2anet/README.md) (TGRS'2021)
-* [x] [ReDet](configs/redet/README.md) (CVPR'2021)
-* [x] [Beyond Bounding-Box](configs/cfa/README.md) (CVPR'2021)
-* [x] [Oriented R-CNN](configs/oriented_rcnn/README.md) (ICCV'2021)
-* [x] [GWD](configs/gwd/README.md) (ICML'2021)
-* [x] [KLD](configs/kld/README.md) (NeurIPS'2021)
-* [x] [SASM](configs/sasm_reppoints/README.md) (AAAI'2022)
-* [x] [KFIoU](configs/kfiou/README.md) (arXiv)
-* [x] [H2RBox](configs/h2rbox/README.md) (arXiv)
-
-</details>
-
-### Model Request
-
-We will keep up with the latest progress of the community, and support more popular algorithms and frameworks. If you have any feature requests, please feel free to leave a comment in [MMRotate Roadmap](https://github.com/open-mmlab/mmrotate/issues/1).
-
-## Data Preparation
-
-Please refer to [data_preparation.md](tools/data/README.md) to prepare the data.
-
-## FAQ
-
-Please refer to [FAQ](docs/en/faq.md) for frequently asked questions.
-
-## Contributing
-
-We appreciate all contributions to improve MMRotate. Please refer to [CONTRIBUTING.md](.github/CONTRIBUTING.md) for the contributing guideline.
-
-## Acknowledgement
-
-MMRotate is an open source project that is contributed by researchers and engineers from various colleges and companies. We appreciate all the contributors who implement their methods or add new features, as well as users who give valuable feedbacks. We wish that the toolbox and benchmark could serve the growing research community by providing a flexible toolkit to reimplement existing methods and develop their own new methods.
+Please refer to the official guide of [MMRotate](https://github.com/open-mmlab/mmrotate) or [here](./README_en.md).
 
 ## Citation
-
-If you find this project useful in your research, please consider cite:
-
-```bibtex
-@inproceedings{zhou2022mmrotate,
-  title   = {MMRotate: A Rotated Object Detection Benchmark using PyTorch},
-  author  = {Zhou, Yue and Yang, Xue and Zhang, Gefan and Wang, Jiabao and Liu, Yanyi and
-             Hou, Liping and Jiang, Xue and Liu, Xingzhao and Yan, Junchi and Lyu, Chengqi and
-             Zhang, Wenwei and Chen, Kai},
-  booktitle={Proceedings of the 30th ACM International Conference on Multimedia},
+```
+@article{yang2022h2rbox,
+  title={H2RBox: Horizonal Box Annotation is All You Need for Oriented Object Detection},
+  author={Yang, Xue and Zhang, Gefan and Li, Wentong and Wang, Xuehui and Zhou, Yue and Yan, Junchi},
+  journal={arXiv preprint arXiv:2210.06742},
   year={2022}
 }
+
 ```
-
-## License
-
-This project is released under the [Apache 2.0 license](LICENSE).
-
-## Projects in OpenMMLab
-
-* [MMCV](https://github.com/open-mmlab/mmcv): OpenMMLab foundational library for computer vision.
-* [MIM](https://github.com/open-mmlab/mim): MIM installs OpenMMLab packages.
-* [MMClassification](https://github.com/open-mmlab/mmclassification): OpenMMLab image classification toolbox and benchmark.
-* [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab detection toolbox and benchmark.
-* [MMDetection3D](https://github.com/open-mmlab/mmdetection3d): OpenMMLab's next-generation platform for general 3D object detection.
-* [MMRotate](https://github.com/open-mmlab/mmrotate): OpenMMLab rotated object detection toolbox and benchmark.
-* [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab semantic segmentation toolbox and benchmark.
-* [MMOCR](https://github.com/open-mmlab/mmocr): OpenMMLab text detection, recognition, and understanding toolbox.
-* [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab pose estimation toolbox and benchmark.
-* [MMHuman3D](https://github.com/open-mmlab/mmhuman3d): OpenMMLab 3D human parametric model toolbox and benchmark.
-* [MMSelfSup](https://github.com/open-mmlab/mmselfsup): OpenMMLab self-supervised learning toolbox and benchmark.
-* [MMRazor](https://github.com/open-mmlab/mmrazor): OpenMMLab model compression toolbox and benchmark.
-* [MMFewShot](https://github.com/open-mmlab/mmfewshot): OpenMMLab fewshot learning toolbox and benchmark.
-* [MMAction2](https://github.com/open-mmlab/mmaction2): OpenMMLab's next-generation action understanding toolbox and benchmark.
-* [MMTracking](https://github.com/open-mmlab/mmtracking): OpenMMLab video perception toolbox and benchmark.
-* [MMFlow](https://github.com/open-mmlab/mmflow): OpenMMLab optical flow toolbox and benchmark.
-* [MMEditing](https://github.com/open-mmlab/mmediting): OpenMMLab image and video editing toolbox.
-* [MMGeneration](https://github.com/open-mmlab/mmgeneration): OpenMMLab image and video generative models toolbox.
-* [MMDeploy](https://github.com/open-mmlab/mmdeploy): OpenMMLab model deployment framework.
