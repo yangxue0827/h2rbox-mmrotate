@@ -38,7 +38,7 @@ DOTA2.0
 - `MS` means multiple scale image split.
 - Inf time was tested on a single RTX3090.
 
-**Get Started**
+## Get Started
 
 Please refer to the official guide of [MMRotate](https://github.com/open-mmlab/mmrotate) or [here](./README_en.md).
 
