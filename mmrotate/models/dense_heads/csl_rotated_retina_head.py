@@ -170,7 +170,7 @@ class CSLRRetinaHead(RotatedRetinaHead):
 
         return loss_cls, loss_bbox, loss_angle
 
-    @force_fp32(apply_to=('cls_scores', 'bbox_preds', 'angle_clses'))
+    @force_fp32(apply_to=('cls_scores', 'bbox_preds'))
     def loss(self,
              cls_scores,
              bbox_preds,

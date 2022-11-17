@@ -814,9 +814,21 @@ class SAMRepPointsHead(BaseDenseHead):
                 points_pred = points_pred[topk_inds, :]
                 scores = scores[topk_inds, :]
 
-            poly_pred = self.points2rotrect(points_pred, y_first=True)
-            bbox_pos_center = points[:, :2].repeat(1, 4)
-            polys = poly_pred * self.point_strides[level_idx] + bbox_pos_center
+            # poly_pred = self.points2rotrect(points_pred, y_first=True)
+            # bbox_pos_center = points[:, :2].repeat(1, 4)
+            # polys = poly_pred * self.point_strides[level_idx] + bbox_pos_center
+            # bboxes = poly2obb(polys, self.version)
+
+            pts_pred = points_pred.reshape(-1, self.num_points, 2)
+            pts_pred_offsety = pts_pred[:, :, 0::2]
+            pts_pred_offsetx = pts_pred[:, :, 1::2]
+            pts_pred = torch.cat([pts_pred_offsetx, pts_pred_offsety],
+                                 dim=2).reshape(-1, 2 * self.num_points)
+
+            pts_pos_center = points[:, :2].repeat(1, self.num_points)
+            pts = pts_pred * self.point_strides[level_idx] + pts_pos_center
+
+            polys = min_area_polygons(pts)
             bboxes = poly2obb(polys, self.version)
 
             mlvl_bboxes.append(bboxes)
