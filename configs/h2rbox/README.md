@@ -38,6 +38,7 @@ DOTA2.0
 
 - `MS` means multiple scale image split.
 - Inf time was tested on a single RTX3090.
+- [Jittor Implementation for H2RBox](https://github.com/yangxue0827/h2rbox-jittor)
 
 ## Citation
 ```
