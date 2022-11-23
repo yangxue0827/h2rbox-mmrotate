@@ -14,9 +14,21 @@ Oriented object detection emerges in many applications from aerial images to aut
 
 DOTA1.0
 
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                         Configs                                         | Download |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------------------:|:--------:|
+| ResNet50 (1024,1024,200) | 67.24 | le135 |   1x    |   5.50   |      25.7      |  -  |     2      | [h2rbox_atss_r50_adamw_fpn_1x_dota_le135](./h2rbox_atss_r50_adamw_fpn_1x_dota_le135.py) |    -     |
+
+DOTA1.5
+
 |         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                            Configs                                            | Download |
 |:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:---------------------------------------------------------------------------------------------:|:--------:|
-| ResNet50 (1024,1024,200) | 67.24 | le135 |   1x    |   5.50   |      25.7      |  -  |     2      |    [h2rbox_atss_r50_adamw_fpn_1x_dota_le135](./h2rbox_atss_r50_adamw_fpn_1x_dota_le135.py)    |    -     |
+| ResNet50 (1024,1024,200) | 59.02 | le135 |   1x    |   6.29   |      24.8      |  -  |     2      | [h2rbox_atss_r50_adamw_fpn_1x_dotav15_le135](./h2rbox_atss_r50_adamw_fpn_1x_dotav15_le135.py) |    -     |
+
+DOTA2.0
+
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                           Configs                                           | Download |
+|:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:-------------------------------------------------------------------------------------------:|:--------:|
+| ResNet50 (1024,1024,200) | 45.35 | le135 |   1x    |   6.43   |      24.7      |  -  |     2      | [h2rbox_atss_r50_adamw_fpn_1x_dotav2_le135](./h2rbox_atss_r50_adamw_fpn_1x_dotav2_le135.py) |    -     |
 
 
 **Notes:**

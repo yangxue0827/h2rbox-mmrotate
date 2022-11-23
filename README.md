@@ -23,15 +23,17 @@ DOTA1.0
 
 DOTA1.5
 
-|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                             Configs                                               | Download |
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                              Configs                                              | Download |
 |:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:-------------------------------------------------------------------------------------------------:|:--------:|
-| ResNet50 (1024,1024,200) | 60.19 | le90  |   1x    |  10.68   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav15_le90](./configs/dotav15/h2rbox_r50_adamw_fpn_1x_dotav15_le90.py) |    -     |
+| ResNet50 (1024,1024,200) | 59.02 | le135 |   1x    |   6.29   |      24.8      |  -  |     2      |   [h2rbox_atss_r50_adamw_fpn_1x_dotav15_le135](./h2rbox_atss_r50_adamw_fpn_1x_dotav15_le135.py)   |    -     |
+| ResNet50 (1024,1024,200) | 60.19 | le90  |   1x    |  10.68   |      25.8      |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav15_le90](./configs/dotav15/h2rbox_r50_adamw_fpn_1x_dotav15_le90.py) |    -     |
 
 DOTA2.0
 
-|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                          Configs                                               | Download |
+|         Backbone         |  mAP  | Angle | lr schd | Mem (GB) | Inf Time (fps) | MS  | Batch Size |                                            Configs                                             | Download |
 |:------------------------:|:-----:|:-----:|:-------:|:--------:|:--------------:|:---:|:----------:|:----------------------------------------------------------------------------------------------:|:--------:|
-| ResNet50 (1024,1024,200) | 45.87 | le90  |   1x    |  11.57   |                |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav2_le90](./configs/dotav2/h2rbox_r50_adamw_fpn_1x_dotav2_le90.py) |    -     |
+| ResNet50 (1024,1024,200) | 45.35 | le135 |   1x    |   6.43   |      24.7      |  -  |     2      |  [h2rbox_atss_r50_adamw_fpn_1x_dotav2_le135](./h2rbox_atss_r50_adamw_fpn_1x_dotav2_le135.py)   |    -     |
+| ResNet50 (1024,1024,200) | 45.87 | le90  |   1x    |  11.57   |      25.0      |  -  |     2      | [h2rbox_r50_adamw_fpn_1x_dotav2_le90](./configs/dotav2/h2rbox_r50_adamw_fpn_1x_dotav2_le90.py) |    -     |
 
 
 **Notes:**
