@@ -2,6 +2,10 @@ _base_ = [
     './h2rbox_r50_fpn_3x_dotav15_le90.py'
 ]
 
+model = dict(
+    bbox_head=dict(
+        rotation_agnostic_classes=[9, 11]))  # Avoid training non convergence
+
 optimizer = dict(
     _delete_=True,
     type='AdamW',
