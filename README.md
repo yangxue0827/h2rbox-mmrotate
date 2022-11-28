@@ -48,7 +48,7 @@ DOTA2.0
 
 ## Get Started
 
-Please refer to the official guide of [MMRotate](https://github.com/open-mmlab/mmrotate) or [here](./README_en.md).
+Please refer to the official guide of [MMRotate 0.x](https://github.com/open-mmlab/mmrotate) or [here](./README_en.md).
 
 ## Citation
 ```
