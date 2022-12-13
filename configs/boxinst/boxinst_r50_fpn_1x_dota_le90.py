@@ -129,7 +129,7 @@ lr_config = dict(
     warmup_ratio=1 / 3.,
     step=[8, 11])
 runner = dict(type='EpochBasedRunner', max_epochs=12)
-evaluation = dict(interval=12, metric=['bbox', 'segm'])
+evaluation = dict(interval=12, metric='mAP')
 checkpoint_config = dict(interval=2)
 custom_imports = dict(
     imports=['boxinst_plugin'],
