@@ -1,4 +1,4 @@
-# H2RBox
+# H2RBox (ICLR 2023)
 > [H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection](https://arxiv.org/abs/2210.06742)
 
 <!-- [ALGORITHM] -->
@@ -52,11 +52,11 @@ Please refer to the official guide of [MMRotate 0.x](https://github.com/open-mml
 
 ## Citation
 ```
-@article{yang2022h2rbox,
+@inproceedings{yang2022h2rbox,
   title={H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection},
   author={Yang, Xue and Zhang, Gefan and Li, Wentong and Wang, Xuehui and Zhou, Yue and Yan, Junchi},
-  journal={arXiv preprint arXiv:2210.06742},
-  year={2022}
+  booktitle={International Conference on Learning Representations},
+  year={2023}
 }
 
 ```
