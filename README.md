@@ -52,7 +52,7 @@ Please refer to the official guide of [MMRotate 0.x](https://github.com/open-mml
 
 ## Citation
 ```
-@inproceedings{yang2022h2rbox,
+@inproceedings{yang2023h2rbox,
   title={H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection},
   author={Yang, Xue and Zhang, Gefan and Li, Wentong and Wang, Xuehui and Zhou, Yue and Yan, Junchi},
   booktitle={International Conference on Learning Representations},
